@@ -14,8 +14,17 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   return result;
 }
 
+// função que busca um produto na API através de um id.
 export async function getProductById(productId) {
   const url = `https://api.mercadolibre.com/items/${productId}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  return result;
+}
+
+// função que busca todos os produtos da API atravpesde um termo.
+export async function getProductFromQuery(query) {
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
   const response = await fetch(url);
   const result = await response.json();
   return result;
