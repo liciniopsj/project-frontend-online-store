@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getCategories } from '../services/api';
-
+// componente criado para listar as categorias na home
 class Categories extends Component {
   state = {
     categories: [],
