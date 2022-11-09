@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import ShoppinCart from './pages/ShoppinCart';
+import ShoppingCart from './pages/ShoppingCart';
 
 function App() {
   return (
-    <div className="App">
+    <Switch>
       <Route exact path="/" component={ Home } />
-      <Route exact path="/shoppinCart" component={ ShoppinCart } />
-    </div>
+      <Route exact path="/shoppingCart" component={ ShoppingCart } />
+    </Switch>
   );
 }
 

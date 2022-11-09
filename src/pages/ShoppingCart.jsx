@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ShoppinCart extends Component {
+class ShoppingCart extends Component {
   state = {
     emptyCart: true,
   };
@@ -11,13 +11,18 @@ class ShoppinCart extends Component {
       <div>
         {
           emptyCart
-          && <p data-testid="shopping-cart-empty-message"> Seu carrinho está vazio </p>
+            ? (
+              <p
+                data-testid="shopping-cart-empty-message"
+              >
+                Seu carrinho está vazio
+              </p>) : null
         }
       </div>
     );
   }
 }
 
-export default ShoppinCart;
+export default ShoppingCart;
 
 // tela carrinho de compras.
