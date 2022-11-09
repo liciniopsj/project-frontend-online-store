@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import Categories from '../components/Categories';
 import { getProductFromQuery } from '../services/api';
 
 class Home extends Component {
   state = {
+    isButtonClick: false,
     inputQuery: '',
     queryResult: [],
+    notFound: false,
+  };
+
+  // Redireciona para shoppingcart
+  buttonClick = () => {
+    this.setState({
+      isButtonClick: true,
+    });
   };
 
   handleQueryButton = async (query) => {
@@ -13,6 +24,7 @@ class Home extends Component {
     console.log(queryResult);
     this.setState({
       queryResult,
+      notFound: queryResult.length === 0,
     });
   };
 
@@ -26,9 +38,11 @@ class Home extends Component {
   };
 
   render() {
-    const { inputQuery, queryResult } = this.state;
+    const { inputQuery, queryResult, isButtonClick, notFound } = this.state;
+    const msgProductNotFound = 'Nenhum produto foi encontrado';
     return (
       <div>
+        <Categories />
         <section>
           <input
             data-testid="query-input"
@@ -47,10 +61,13 @@ class Home extends Component {
         </section>
 
         <section>
+
           { queryResult.length === 0
             ? (
               <span data-testid="home-initial-message">
-                Nenhum produto foi encontrado
+                { notFound
+                  ? msgProductNotFound
+                  : 'Digite algum termo de pesquisa ou escolha uma categoria.' }
               </span>)
             : queryResult.map((item) => (
               <div data-testid="product" key={ item.id }>
@@ -60,6 +77,16 @@ class Home extends Component {
               </div>
             )) }
         </section>
+        <button
+          type="button"
+          data-testid="shopping-cart-button"
+          onClick={ this.buttonClick }
+        >
+          Carrinho de Compras
+        </button>
+        {
+          isButtonClick ? <Redirect to="/shoppingCart" /> : null
+        }
       </div>
     );
   }
