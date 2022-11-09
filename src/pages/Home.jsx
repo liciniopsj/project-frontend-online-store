@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Categories from '../components/Categories';
 
 class Home extends Component {
   state = {
@@ -19,6 +20,7 @@ class Home extends Component {
         <span data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </span>
+        <Categories />
         <button
           type="button"
           data-testid="shopping-cart-button"
@@ -28,7 +30,6 @@ class Home extends Component {
         </button>
         {
           isButtonClick ? <Redirect to="/shoppingCart" /> : null
-
         }
       </div>
     );
