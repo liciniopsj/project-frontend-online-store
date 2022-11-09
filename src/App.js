@@ -20,5 +20,5 @@ function App() {
     </div>
   );
 }
-//iniciando Projeto
+
 export default App;

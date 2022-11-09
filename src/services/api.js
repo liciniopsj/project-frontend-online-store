@@ -1,5 +1,9 @@
+// função que pega as categorias da api.
+
 export async function getCategories() {
-  // Implemente aqui
+  const response = await fetch(' https://api.mercadolibre.com/sites/MLB/categories');
+  const result = response.json();
+  return result;
 }
 
 export async function getProductsFromCategoryAndQuery(/* categoryId, query */) {
