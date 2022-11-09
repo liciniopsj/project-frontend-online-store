@@ -7,6 +7,7 @@ class Home extends Component {
         <span data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </span>
+        <button type="button" data-testid="shopping-cart-button"> Carrinho de Compras </button>
       </div>
     );
   }
