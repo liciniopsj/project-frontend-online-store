@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
 class Home extends Component {
+  state = {
+
+  };
+
   render() {
     return (
       <div>
-        <span data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </span>
+        <input data-testid="query-input" type="text" />
+        <button data-testid="query-button" type="submit">Buscar</button>
       </div>
     );
   }
