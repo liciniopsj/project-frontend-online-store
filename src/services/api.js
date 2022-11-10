@@ -29,3 +29,11 @@ export async function getProductFromQuery(query) {
   const result = await response.json();
   return result;
 }
+
+//  função que busca itens por categoria.
+export async function getProductsFromCategory(categoryId) {
+  const url = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  return result;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Categories from '../components/Categories';
-import { getProductFromQuery } from '../services/api';
+import { getProductFromQuery, getProductsFromCategory } from '../services/api';
 
 class Home extends Component {
   state = {
@@ -21,7 +21,7 @@ class Home extends Component {
   handleQueryButton = async (query) => {
     const queryResultComplete = await getProductFromQuery(query);
     const queryResult = await queryResultComplete.results;
-    console.log(queryResult);
+    // console.log(queryResult);
     this.setState({
       queryResult,
       notFound: queryResult.length === 0,
@@ -31,18 +31,30 @@ class Home extends Component {
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-
     this.setState({
       [name]: value,
     });
   };
 
+  onClickCategories = async (event) => {
+    const { id } = event.target;
+    const { results } = await getProductsFromCategory(id);
+    // console.log(results);
+    this.setState({
+      queryResult: results,
+    });
+  };
+
   render() {
-    const { inputQuery, queryResult, isButtonClick, notFound } = this.state;
+    const { inputQuery,
+      queryResult, isButtonClick,
+      notFound } = this.state;
     const msgProductNotFound = 'Nenhum produto foi encontrado';
     return (
       <div>
-        <Categories />
+        <Categories
+          returnProduct={ this.onClickCategories }
+        />
         <section>
           <input
             data-testid="query-input"
