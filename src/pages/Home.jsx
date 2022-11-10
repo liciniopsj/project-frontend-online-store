@@ -9,7 +9,6 @@ class Home extends Component {
     inputQuery: '',
     queryResult: [],
     notFound: false,
-    returnProduct: [],
   };
 
   // Redireciona para shoppingcart
@@ -19,19 +18,10 @@ class Home extends Component {
     });
   };
 
-  onClickCategories = async (event) => {
-    const { id } = event.target;
-    const { results } = await getProductsFromCategory(id);
-    console.log(results);
-    this.setState({
-      returnProduct: results,
-    });
-  };
-
   handleQueryButton = async (query) => {
     const queryResultComplete = await getProductFromQuery(query);
     const queryResult = await queryResultComplete.results;
-    console.log(queryResult);
+    // console.log(queryResult);
     this.setState({
       queryResult,
       notFound: queryResult.length === 0,
@@ -41,16 +31,24 @@ class Home extends Component {
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-
     this.setState({
       [name]: value,
+    });
+  };
+
+  onClickCategories = async (event) => {
+    const { id } = event.target;
+    const { results } = await getProductsFromCategory(id);
+    // console.log(results);
+    this.setState({
+      queryResult: results,
     });
   };
 
   render() {
     const { inputQuery,
       queryResult, isButtonClick,
-      notFound, returnProduct } = this.state;
+      notFound } = this.state;
     const msgProductNotFound = 'Nenhum produto foi encontrado';
     return (
       <div>

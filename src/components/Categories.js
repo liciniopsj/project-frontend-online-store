@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 // componente criado para listar as categorias na home
 class Categories extends Component {
@@ -20,7 +21,7 @@ class Categories extends Component {
 
   render() {
     const { categories } = this.state;
-    const { onClickCategories } = this.props;
+    const { returnProduct } = this.props;
     return (
       <div>
         {categories.map(({ id, name }) => (
@@ -28,7 +29,7 @@ class Categories extends Component {
             data-testid="category"
             type="button"
             key={ id }
-            onClick={ onClickCategories }
+            onClick={ returnProduct }
             id={ id }
           >
 
@@ -41,4 +42,7 @@ class Categories extends Component {
   }
 }
 
+Categories.propTypes = {
+  returnProduct: PropTypes.func.isRequired,
+};
 export default Categories;
