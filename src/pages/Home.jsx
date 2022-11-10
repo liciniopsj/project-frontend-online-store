@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Categories from '../components/Categories';
 import { getProductFromQuery, getProductsFromCategory } from '../services/api';
+import Buttongotoshoppingcart from '../components/Buttongotoshoppingcart';
 
 class Home extends Component {
   state = {
@@ -99,6 +100,8 @@ class Home extends Component {
         {
           isButtonClick ? <Redirect to="/shoppingCart" /> : null
         }
+
+        <Buttongotoshoppingcart />
       </div>
     );
   }
