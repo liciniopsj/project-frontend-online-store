@@ -19,8 +19,6 @@ class Product extends Component {
 
   render() {
     const { product } = this.state;
-    console.log(product);
-
     return (
       <div>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
@@ -30,6 +28,16 @@ class Product extends Component {
           src={ product.thumbnail }
           alt={ product.title }
         />
+
+        {/* Ideia de melhoria, ao invés de renderizar a thumbnail, renderizar as imagens
+        { pictures.map((pic) => (
+          <img
+            key={ pic.id }
+            data-testid="product-detail-image"
+            src={ pic.url }
+            alt={ product.title }
+          />
+        )) } */}
         <Link to="/shoppingCart" data-testid="shopping-cart-button">
           <button type="submit">
             Adicionar ao carrinho
@@ -49,7 +57,3 @@ Product.propTypes = {
 }.isRequired;
 
 export default Product;
-
-// name
-// image
-// price
