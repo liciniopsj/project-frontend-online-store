@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Categories from '../components/Categories';
-import { getProductFromQuery } from '../services/api';
+import { getProductFromQuery, getProductsFromCategory } from '../services/api';
 
 class Home extends Component {
   state = {
@@ -9,12 +9,22 @@ class Home extends Component {
     inputQuery: '',
     queryResult: [],
     notFound: false,
+    returnProduct: [],
   };
 
   // Redireciona para shoppingcart
   buttonClick = () => {
     this.setState({
       isButtonClick: true,
+    });
+  };
+
+  onClickCategories = async (event) => {
+    const { id } = event.target;
+    const { results } = await getProductsFromCategory(id);
+    console.log(results);
+    this.setState({
+      returnProduct: results,
     });
   };
 
@@ -38,11 +48,15 @@ class Home extends Component {
   };
 
   render() {
-    const { inputQuery, queryResult, isButtonClick, notFound } = this.state;
+    const { inputQuery,
+      queryResult, isButtonClick,
+      notFound, returnProduct } = this.state;
     const msgProductNotFound = 'Nenhum produto foi encontrado';
     return (
       <div>
-        <Categories />
+        <Categories
+          returnProduct={ this.onClickCategories }
+        />
         <section>
           <input
             data-testid="query-input"

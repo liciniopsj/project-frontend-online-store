@@ -20,6 +20,7 @@ class Categories extends Component {
 
   render() {
     const { categories } = this.state;
+    const { onClickCategories } = this.props;
     return (
       <div>
         {categories.map(({ id, name }) => (
@@ -27,6 +28,8 @@ class Categories extends Component {
             data-testid="category"
             type="button"
             key={ id }
+            onClick={ onClickCategories }
+            id={ id }
           >
 
             {name}
