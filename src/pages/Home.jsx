@@ -82,8 +82,12 @@ class Home extends Component {
                   : 'Digite algum termo de pesquisa ou escolha uma categoria.' }
               </span>)
             : queryResult.map((item) => (
-              <Link to="/product" data-testid="product" key={ item.id }>
-                <div>
+              <Link
+                to={ `/product/${item.id}` }
+                data-testid="product-detail-link"
+                key={ item.id }
+              >
+                <div data-testid="product">
                   <h3>{item.title}</h3>
                   <img src={ item.thumbnail } alt={ item.title } />
                   <h2>{ item.price }</h2>
