@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import CartItemListCard from '../components/CartItemListCard';
+import { bttClickIncrement, bttClickDecremented } from '../services/CounterBtt';
 
 class ShoppingCart extends Component {
   state = {
     emptyCart: true,
     cartItems: [],
+    counter: 1,
   };
 
   componentDidMount() {
@@ -34,6 +36,24 @@ class ShoppingCart extends Component {
     }
   };
 
+  bttCounterInc = () => {
+    const { counter } = this.state;
+    const counterInc = bttClickIncrement(counter);
+    this.setState({
+      counter: counterInc,
+    });
+    if (counter === 0) this.setState({ counter: 1 });
+  };
+
+  bttCounterDec = () => {
+    const { counter } = this.state;
+    const counterDec = bttClickDecremented(counter);
+    this.setState({
+      counter: counterDec,
+    });
+    if (counter === 0) this.setState({ counter: 1 });
+  };
+
   getItemsFromLocalStorage = () => {
     const recoveredCartItems = JSON.parse(localStorage.getItem('cartItems'));
     const isEmpty = recoveredCartItems === null || recoveredCartItems.length === 0;
@@ -43,7 +63,6 @@ class ShoppingCart extends Component {
       });
     }
     if (!isEmpty) {
-      // console.log('bang');
       this.setState((prevState) => ({
         emptyCart: false,
         cartItems: [...prevState.cartItems, ...recoveredCartItems],
@@ -54,7 +73,7 @@ class ShoppingCart extends Component {
   };
 
   render() {
-    const { emptyCart, cartItems } = this.state;
+    const { emptyCart, cartItems, counter } = this.state;
     // console.log(cartItems);
     return (
       <div>
@@ -73,6 +92,9 @@ class ShoppingCart extends Component {
                 title={ item.title }
                 price={ item.price }
                 handleRemoveItemButton={ this.handleRemoveItemButton }
+                counterInc={ this.bttCounterInc }
+                counterDec={ this.bttCounterDec }
+                counter={ counter }
               />
             ))
         }

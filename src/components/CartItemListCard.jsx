@@ -3,25 +3,12 @@ import PropTypes from 'prop-types';
 
 class CartItemListCard extends Component {
   render() {
-    const {
-      title,
-      price,
-      counterInc,
-      counterDec,
-      counter,
-      id,
-      handleRemoveItemButton } = this.props;
+    const { tittle, price, counterInc, counterDec, counter } = this.props;
     return (
       <>
         <div>
-          <button
-            type="button"
-            id={ id }
-            onClick={ handleRemoveItemButton }
-          >
-            Excluir Item
-          </button>
-          <span>{title}</span>
+          <button type="button">Excluir Item</button>
+          <span>{tittle}</span>
           {' '}
           <span>{`R$${price}`}</span>
           {'  '}
@@ -51,7 +38,7 @@ class CartItemListCard extends Component {
 export default CartItemListCard;
 
 CartItemListCard.propTypes = {
-  title: PropTypes.string,
+  tittle: PropTypes.string,
   price: PropTypes.string,
   counterInc: PropTypes.number,
   counterDec: PropTypes.number,

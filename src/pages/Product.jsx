@@ -42,7 +42,7 @@ class Product extends Component {
         )) } */}
         <Link to="/shoppingCart" data-testid="shopping-cart-button">
           <button type="submit">
-            Adicionar ao carrinho
+            Meu carrinho
           </button>
         </Link>
         <button
