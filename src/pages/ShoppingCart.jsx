@@ -77,7 +77,6 @@ class ShoppingCart extends Component {
 
   render() {
     const { emptyCart, cartItems, counter } = this.state;
-    // console.log(cartItems);
     return (
       <div>
         {

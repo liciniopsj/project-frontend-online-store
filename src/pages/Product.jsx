@@ -53,8 +53,7 @@ class Product extends Component {
           type="button"
           onClick={ () => handleButtonAddCart(this.state) }
         >
-          REQ9 ADD TO CART
-          {/* Nome temporario, mudar quando o nome do outro botao for refatorado. */}
+          Adicionar ao carrinho
         </button>
       </div>
     );
