@@ -49,7 +49,7 @@ class Home extends Component {
     const { inputQuery,
       queryResult, isButtonClick,
       notFound } = this.state;
-    const msgProductNotFound = 'Nenhum produto foi encontrado';
+    // const msgProductNotFound = 'Nenhum produto foi encontrado';
     return (
       <div>
         <Categories
@@ -78,7 +78,7 @@ class Home extends Component {
             ? (
               <span data-testid="home-initial-message">
                 { notFound
-                  ? msgProductNotFound
+                  ? 'Nenhum produto foi encontrado'
                   : 'Digite algum termo de pesquisa ou escolha uma categoria.' }
               </span>)
             : queryResult.map((item) => (
