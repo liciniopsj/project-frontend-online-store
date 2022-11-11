@@ -18,10 +18,11 @@ class CartItemListCard extends Component {
             type="button"
             id={ id }
             onClick={ handleRemoveItemButton }
+            data-testid="remove-product"
           >
             Excluir Item
           </button>
-          <span>{title}</span>
+          <span data-testid="shopping-cart-product-name">{title}</span>
           {' '}
           <span>{`R$${price}`}</span>
           {'  '}
@@ -34,12 +35,14 @@ class CartItemListCard extends Component {
           <button
             type="button"
             onClick={ counterInc }
+            data-testid="product-increase-quantity"
           >
             +
           </button>
           <button
             type="button"
             onClick={ counterDec }
+            data-testid="product-decrease-quantity"
           >
             -
           </button>

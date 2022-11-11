@@ -40,8 +40,11 @@ class Product extends Component {
             alt={ product.title }
           />
         )) } */}
-        <Link to="/shoppingCart" data-testid="shopping-cart-button">
-          <button type="submit">
+        <Link to="/shoppingCart">
+          <button
+            type="submit"
+            data-testid="shopping-cart-button"
+          >
             Meu carrinho
           </button>
         </Link>

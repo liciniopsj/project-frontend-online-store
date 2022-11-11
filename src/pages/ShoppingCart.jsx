@@ -47,11 +47,14 @@ class ShoppingCart extends Component {
 
   bttCounterDec = () => {
     const { counter } = this.state;
-    const counterDec = bttClickDecremented(counter);
-    this.setState({
-      counter: counterDec,
-    });
-    if (counter === 0) this.setState({ counter: 1 });
+    const isOne = counter === 1;
+    if (!isOne) {
+      const counterDec = bttClickDecremented(counter);
+      this.setState({
+        counter: counterDec,
+      });
+    }
+    // if (counter === 0) this.setState({ counter: 1 });
   };
 
   getItemsFromLocalStorage = () => {
