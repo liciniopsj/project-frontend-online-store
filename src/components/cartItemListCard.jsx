@@ -11,6 +11,20 @@ export default class cartItemListCard extends Component {
         {' '}
         <span>{`R$${price}`}</span>
       </div>
+      <div>
+                <button
+          type="button"
+          onClick={ this.bttClickIncrement }
+        >
+          +
+        </button>
+        <button
+          type="button"
+          onClick={ this.bttClickIncrement }
+        >
+          -
+        </button>
+      </div>
     );
   }
 }
