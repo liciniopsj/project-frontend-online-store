@@ -6,7 +6,7 @@ class ShoppingCart extends Component {
   state = {
     emptyCart: true,
     cartItems: [],
-    counter: 0,
+    counter: 1,
   };
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class ShoppingCart extends Component {
     this.setState({
       counter: counterInc,
     });
-    // const counterDec = bttClickDecremented(counter);
+    if (counter === 0) this.setState({ counter: 1 });
   };
 
   bttCounterDec = () => {
@@ -28,6 +28,7 @@ class ShoppingCart extends Component {
     this.setState({
       counter: counterDec,
     });
+    if (counter === 0) this.setState({ counter: 1 });
   };
 
   getItemsFromLocalStorage = () => {
@@ -39,7 +40,6 @@ class ShoppingCart extends Component {
       });
     }
     if (!isEmpty) {
-      // console.log('bang');
       this.setState((prevState) => ({
         emptyCart: false,
         cartItems: [...prevState.cartItems, ...recoveredCartItems],
