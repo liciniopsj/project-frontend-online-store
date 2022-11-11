@@ -1,4 +1,4 @@
-export function bttClickIncrement() {
+export function bttClickIncrement(state) {
   const increment = state + 1;
   return increment;
 }

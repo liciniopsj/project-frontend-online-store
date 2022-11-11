@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
 import CartItemListCard from '../components/CartItemListCard';
+import { bttClickIncrement, bttClickDecremented } from '../services/CounterBtt';
 
 class ShoppingCart extends Component {
   state = {
     emptyCart: true,
     cartItems: [],
+    counter: 0,
   };
 
   componentDidMount() {
     this.getItemsFromLocalStorage();
   }
+
+  bttCounterInc = () => {
+    const { counter } = this.state;
+    const counterInc = bttClickIncrement(counter);
+    this.setState({
+      counter: counterInc,
+    });
+    // const counterDec = bttClickDecremented(counter);
+  };
+
+  bttCounterDec = () => {
+    const { counter } = this.state;
+    const counterDec = bttClickDecremented(counter);
+    this.setState({
+      counter: counterDec,
+    });
+  };
 
   getItemsFromLocalStorage = () => {
     const recoveredCartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -31,7 +50,7 @@ class ShoppingCart extends Component {
   };
 
   render() {
-    const { emptyCart, cartItems } = this.state;
+    const { emptyCart, cartItems, counter } = this.state;
     // console.log(cartItems);
     return (
       <div>
@@ -44,18 +63,14 @@ class ShoppingCart extends Component {
                 Seu carrinho está vazio
               </p>)
             : cartItems.map((item, index) => (
-              // <div key={ index }>
-              //   <span data-testid="shopping-cart-product-name">{item.title}</span>
-              //   {' '}
-              //   <span>{`R$ ${item.price}`}</span>
-              //   {'  '}
-              //   <span>Quantidade: </span>
-              //   <span data-testid="shopping-cart-product-quantity">1</span>
-              // </div>
+
               <CartItemListCard
                 key={ index }
                 title={ item.title }
                 price={ item.price }
+                counterInc={ this.bttCounterInc }
+                counterDec={ this.bttCounterDec }
+                counter={ counter }
               />
             ))
         }
