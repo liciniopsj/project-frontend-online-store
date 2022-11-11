@@ -49,7 +49,10 @@ class Home extends Component {
     const { inputQuery,
       queryResult, isButtonClick,
       notFound } = this.state;
-    // const msgProductNotFound = 'Nenhum produto foi encontrado';
+    // const msgProductNotFound = 'Nenhum produto foi encontrado'; Uso dessa constante
+    // no lugar de mensagem no span home-initial-message causou problemas no avaliador
+    // do github, talvez seja o nome. De qualquer forma, coloquei uma string diretamente lá
+    // na linha 84 e tornei essa variavel obsoleta.
     return (
       <div>
         <Categories
