@@ -6,6 +6,7 @@ export default class cartItemListCard extends Component {
     const { tittle, price } = this.props;
     return (
       <div>
+        <button type="button">Excluir Item</button>
         <span>{tittle}</span>
         {' '}
         <span>{`R$${price}`}</span>
