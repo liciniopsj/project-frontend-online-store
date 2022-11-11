@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import { getProductFromQuery, getProductsFromCategory } from '../services/api';
 import ProductCard from '../components/ProductCard';
