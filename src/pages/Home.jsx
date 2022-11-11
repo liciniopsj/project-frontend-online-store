@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Categories from '../components/Categories';
-import { getProductFromQuery, getProductsFromCategory } from '../services/api';
+import { getProductById, getProductFromQuery, getProductsFromCategory } from '../services/api';
+import ProductCard from '../components/ProductCard';
+import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 
 class Home extends Component {
   state = {
@@ -48,8 +50,13 @@ class Home extends Component {
 
   getSavedCartItems = (event) => {
     const { id } = event.target;
+    // console.log(event.target);
+    const product = JSON.parse(id);
+    this.setState({
+      product,
+    });
+    handleButtonAddCart(this.state);
     const { history } = this.props;
-    localStorage.setItem('cartItems', JSON.stringify(id));
     history.push('/shoppingCart');
   };
 
@@ -91,21 +98,17 @@ class Home extends Component {
               </span>)
             : queryResult.map((item) => (
               <div key={ item.id }>
-                <Link
-                  to={ `/product/${item.id}` }
-                  data-testid="product-detail-link"
-                >
-                  <div data-testid="product">
-                    <h3>{item.title}</h3>
-                    <img src={ item.thumbnail } alt={ item.title } />
-                    <h2>{ item.price }</h2>
-                  </div>
-                </Link>
+                <ProductCard
+                  id={ item.id }
+                  title={ item.title }
+                  price={ item.price }
+                  thumbnail={ item.thumbnail }
+                />
                 <button
                   type="button"
                   data-testid="product-add-to-cart"
                   onClick={ this.getSavedCartItems }
-                  id={ item.id }
+                  id={ JSON.stringify(item) }
                 >
                   Adicionar ao Carrinho
                 </button>

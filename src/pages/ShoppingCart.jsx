@@ -4,15 +4,23 @@ import React, { Component } from 'react';
 class ShoppingCart extends Component {
   state = {
     emptyCart: true,
+    productId: '',
   };
 
-getStorage = () => {
-  const storage = localStorage.getItem('cartItems');
-  console.log(storage);
-};
+  componentDidMount() {
+    this.getStorage();
+  }
+
+  getStorage = () => {
+    const storage = localStorage.getItem('cartItems');
+    // const product = JSON.parse(storage);
+    this.setState({
+      productId: storage,
+    });
+  };
 
   render() {
-    const { emptyCart } = this.state;
+    const { emptyCart, productId } = this.state;
     return (
       <div>
         {
@@ -23,6 +31,9 @@ getStorage = () => {
               >
                 Seu carrinho está vazio
               </p>) : null
+        }
+        {
+          productId ? <p data-testid="shopping-cart-product-name">{ productId }</p> : null
         }
       </div>
     );
