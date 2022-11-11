@@ -3,15 +3,24 @@ export function handleShoppingCartButton() {
   history.push('/shoppingCart');
 }
 
-export function handleButtonAddCart() {
-  const { product: { title, price } } = this.state;
-  if (localStorage.length > 0) {
+export function handleButtonAddCart(state) {
+  const { product: { title, price } } = state;
+  const productObj = {
+    title,
+    price,
+  };
+  // Verifica se o conteudo dentro de localstorage cartItems é nulo, se sim, isEmpty é true.
+  // localStorage.length me causou problemas, se houver qualquer outro valor lá ele acusa como
+  // não zero, e a key randid costuma ser gerada lá pelo browser. Zoando a logica anterior.
+  const isEmpty = JSON.parse(localStorage.getItem('cartItems')) === null;
+  // console.log(isEmpty);
+  // Fiz com dois ifs pra ficar melhor a leitura
+  if (isEmpty) { // Se isEmpty é true esse bloco executa
+    localStorage.setItem('cartItems', JSON.stringify([productObj]));
+  }
+  if (!isEmpty) { // Se isEmpty for false este bloco excuta
     const prevLocalStorage = JSON.parse(localStorage.getItem('cartItems'));
-    const productObj = {
-      title,
-      price,
-    };
     const arrayOfProductObj = [...prevLocalStorage, productObj];
-    localStorage.setItem('cart', JSON.stringify(arrayOfProductObj));
+    localStorage.setItem('cartItems', JSON.stringify(arrayOfProductObj));
   }
 }
