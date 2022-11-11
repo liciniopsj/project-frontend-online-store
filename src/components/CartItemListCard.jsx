@@ -3,42 +3,57 @@ import PropTypes from 'prop-types';
 
 class CartItemListCard extends Component {
   render() {
-    const { tittle, price, counterInc, counterDec, counter } = this.props;
+    const {
+      title,
+      price,
+      counterInc,
+      counterDec,
+      counter,
+      id,
+      handleRemoveItemButton } = this.props;
     return (
-      <>
-        <div>
-          <button type="button">Excluir Item</button>
-          <span>{tittle}</span>
-          {' '}
-          <span>{`R$${price}`}</span>
-          {'  '}
-          <span>Quantidade: </span>
-          <span data-testid="shopping-cart-product-quantity">
-            { counter }
-          </span>
-        </div>
+      <div>
+        <button
+          type="button"
+          id={ id }
+          onClick={ handleRemoveItemButton }
+          data-testid="remove-product"
+        >
+          Excluir Item
+        </button>
+        {' '}
+        <span data-testid="shopping-cart-product-name">{title}</span>
+        {' '}
+        <span>{`R$${price}`}</span>
+        {'  '}
+        <span>Quantidade: </span>
+        <span data-testid="shopping-cart-product-quantity">
+          { counter }
+        </span>
         <div>
           <button
             type="button"
             onClick={ counterInc }
+            data-testid="product-increase-quantity"
           >
             +
           </button>
           <button
             type="button"
             onClick={ counterDec }
+            data-testid="product-decrease-quantity"
           >
             -
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }
 export default CartItemListCard;
 
 CartItemListCard.propTypes = {
-  tittle: PropTypes.string,
+  title: PropTypes.string,
   price: PropTypes.string,
   counterInc: PropTypes.number,
   counterDec: PropTypes.number,
