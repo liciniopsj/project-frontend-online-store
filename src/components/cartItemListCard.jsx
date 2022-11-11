@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 
 class CartItemListCard extends Component {
   render() {
-    const { title, price } = this.props;
+    const { title, price, id, handleRemoveItemButton } = this.props;
     return (
       <div>
-        <button type="button">Excluir Item</button>
+        <button
+          type="button"
+          id={ id }
+          onClick={ handleRemoveItemButton }
+        >
+          Excluir Item
+        </button>
+        {' '}
+        {/* <span>{id}</span> */}
+        {' '}
         <span>{title}</span>
         {' '}
         <span>{`R$${price}`}</span>
@@ -23,4 +32,6 @@ export default CartItemListCard;
 CartItemListCard.propTypes = {
   title: PropTypes.string,
   price: PropTypes.string,
+  id: PropTypes.string,
+  handleRemoveItemButton: PropTypes.func,
 }.isRequired;

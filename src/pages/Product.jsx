@@ -12,6 +12,7 @@ class Product extends Component {
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductById(id);
+    // console.log(product);
 
     this.setState({
       product,

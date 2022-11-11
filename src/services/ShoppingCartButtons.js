@@ -4,8 +4,9 @@ export function handleShoppingCartButton() {
 }
 
 export function handleButtonAddCart(state) {
-  const { product: { title, price } } = state;
+  const { product: { title, price, id } } = state;
   const productObj = {
+    id,
     title,
     price,
   };
