@@ -22,6 +22,7 @@ class CartItemListCard extends Component {
           >
             Excluir Item
           </button>
+          {' '}
           <span data-testid="shopping-cart-product-name">{title}</span>
           {' '}
           <span>{`R$${price}`}</span>

@@ -88,9 +88,9 @@ class ShoppingCart extends Component {
               >
                 Seu carrinho está vazio
               </p>)
-            : cartItems.map((item, index) => (
+            : cartItems.map((item) => (
               <CartItemListCard
-                key={ index }
+                key={ item.id }
                 id={ item.id }
                 title={ item.title }
                 price={ item.price }
