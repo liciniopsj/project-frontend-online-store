@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 
 class Product extends Component {
   state = {
@@ -43,6 +44,14 @@ class Product extends Component {
             Meu carrinho
           </button>
         </Link>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ () => handleButtonAddCart(this.state) }
+        >
+          REQ9 ADD TO CART
+          {/* Nome temporario, mudar quando o nome do outro botao for refatorado. */}
+        </button>
       </div>
     );
   }
