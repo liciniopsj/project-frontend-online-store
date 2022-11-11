@@ -48,16 +48,10 @@ class Home extends Component {
     // console.log(queryResult);
   };
 
-  getSavedCartItems = (event) => {
-    const { id } = event.target;
-    // console.log(event.target);
-    const product = JSON.parse(id);
+  getSavedCartItems = (item) => {
     this.setState({
-      product,
-    });
-    handleButtonAddCart(this.state);
-    const { history } = this.props;
-    history.push('/shoppingCart');
+      product: item,
+    }, () => handleButtonAddCart(this.state));
   };
 
   render() {
@@ -107,8 +101,7 @@ class Home extends Component {
                 <button
                   type="button"
                   data-testid="product-add-to-cart"
-                  onClick={ this.getSavedCartItems }
-                  id={ JSON.stringify(item) }
+                  onClick={ () => this.getSavedCartItems(item) }
                 >
                   Adicionar ao Carrinho
                 </button>

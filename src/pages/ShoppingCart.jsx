@@ -12,10 +12,10 @@ class ShoppingCart extends Component {
   }
 
   getStorage = () => {
-    const storage = localStorage.getItem('cartItems');
-    // const product = JSON.parse(storage);
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
     this.setState({
       productId: storage,
+      emptyCart: false,
     });
   };
 
@@ -30,10 +30,14 @@ class ShoppingCart extends Component {
                 data-testid="shopping-cart-empty-message"
               >
                 Seu carrinho está vazio
-              </p>) : null
-        }
-        {
-          productId ? <p data-testid="shopping-cart-product-name">{ productId }</p> : null
+              </p>) : productId.map((muria) => (
+              <div
+              key={ muria.id }
+              >
+                <p data-testid="shopping-cart-product-name">{ muria.title }</p>
+                <span data-testid="shopping-cart-product-quantity">1</span>
+              </div>
+              ))
         }
       </div>
     );
