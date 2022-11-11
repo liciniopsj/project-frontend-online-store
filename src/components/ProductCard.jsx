@@ -22,7 +22,6 @@ class ProductCard extends Component {
 }
 
 export default ProductCard;
-
 ProductCard.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,

@@ -26,7 +26,7 @@ export function handleButtonAddCart(state) {
   }
 }
 
-export function handleRemoveItemButton(event) {
-  const storage = JSON.parse(localStorage.getItem('cartItems'));
-  console.log(event);
-}
+// export function handleRemoveItemButton(event) {
+//   const storage = JSON.parse(localStorage.getItem('cartItems'));
+//   console.log(event);
+// }

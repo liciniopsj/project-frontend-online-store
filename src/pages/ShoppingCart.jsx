@@ -30,14 +30,15 @@ class ShoppingCart extends Component {
                 data-testid="shopping-cart-empty-message"
               >
                 Seu carrinho está vazio
-              </p>) : productId.map((muria) => (
+              </p>)
+            : productId.map((muria) => (
               <div
-              key={ muria.id }
+                key={ muria.id }
               >
                 <p data-testid="shopping-cart-product-name">{ muria.title }</p>
                 <span data-testid="shopping-cart-product-quantity">1</span>
               </div>
-              ))
+            ))
         }
       </div>
     );
