@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartItemListCard from '../components/CartItemListCard';
 
 class ShoppingCart extends Component {
   state = {
@@ -43,14 +44,19 @@ class ShoppingCart extends Component {
                 Seu carrinho está vazio
               </p>)
             : cartItems.map((item, index) => (
-              <div key={ index }>
-                <span data-testid="shopping-cart-product-name">{item.title}</span>
-                {' '}
-                <span>{`R$ ${item.price}`}</span>
-                {'  '}
-                <span>Quantidade: </span>
-                <span data-testid="shopping-cart-product-quantity">1</span>
-              </div>
+              // <div key={ index }>
+              //   <span data-testid="shopping-cart-product-name">{item.title}</span>
+              //   {' '}
+              //   <span>{`R$ ${item.price}`}</span>
+              //   {'  '}
+              //   <span>Quantidade: </span>
+              //   <span data-testid="shopping-cart-product-quantity">1</span>
+              // </div>
+              <CartItemListCard
+                key={ index }
+                title={ item.title }
+                price={ item.price }
+              />
             ))
         }
       </div>

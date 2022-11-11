@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class cartItemListCard extends Component {
+class CartItemListCard extends Component {
   render() {
-    const { tittle, price } = this.props;
+    const { title, price } = this.props;
     return (
       <div>
         <button type="button">Excluir Item</button>
-        <span>{tittle}</span>
+        <span>{title}</span>
         {' '}
         <span>{`R$${price}`}</span>
+        {'  '}
+        <span>Quantidade: </span>
+        <span data-testid="shopping-cart-product-quantity">1</span>
       </div>
     );
   }
 }
 
-cartItemListCard.propTypes = {
-  tittle: PropTypes.string,
+export default CartItemListCard;
+
+CartItemListCard.propTypes = {
+  title: PropTypes.string,
   price: PropTypes.string,
 }.isRequired;
