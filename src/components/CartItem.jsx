@@ -8,7 +8,7 @@ class CartItemListCard extends Component {
       price,
       counterInc,
       counterDec,
-      counter,
+      quantity,
       id,
       handleRemoveItemButton } = this.props;
     return (
@@ -29,7 +29,7 @@ class CartItemListCard extends Component {
           {'  '}
           <span>Quantidade: </span>
           <span data-testid="shopping-cart-product-quantity">
-            { counter }
+            { quantity }
           </span>
         </div>
         <div>
