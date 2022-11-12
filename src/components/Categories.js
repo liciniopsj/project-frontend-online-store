@@ -10,7 +10,6 @@ class Categories extends Component {
   componentDidMount() {
     this.fecth();
   }
-  // funçao para recuperar a categoria de produtos.
 
   fecth = async () => {
     const categoriesApi = await getCategories();
