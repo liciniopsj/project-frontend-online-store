@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import CartItemListCard from '../components/CartItem';
 import { bttClickIncrement, bttClickDecremented } from '../services/CounterBtt';
 
-
 class ShoppingCart extends Component {
   state = {
     emptyCart: true,
