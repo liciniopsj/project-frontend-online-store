@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CartItemListCard from '../components/CartItem';
-import { bttClickIncrement, bttClickDecremented } from '../services/CounterBtt';
 
 class ShoppingCart extends Component {
   state = {
@@ -14,21 +13,14 @@ class ShoppingCart extends Component {
   }
 
   handleRemoveItemButton = (event) => {
-    // const { cartItems } = this.state;
     const storage = JSON.parse(localStorage.getItem('cartItems'));
     const itemId = event.target.id;
-    // console.log(storage);
-    // console.log(itemId);
     const filteredStorage = storage.filter((item) => item.id !== itemId);
     localStorage.setItem('cartItems', JSON.stringify(filteredStorage));
-    // console.log('filtrado', filteredStorage);
     this.setState({
       cartItems: filteredStorage,
     });
     const isEmpty = filteredStorage.length === 0;
-    // console.log(filteredStorage);
-    // console.log(filteredStorage.length);
-    // console.log(isEmpty);
     if (isEmpty) {
       this.setState({
         emptyCart: true,
@@ -36,25 +28,36 @@ class ShoppingCart extends Component {
     }
   };
 
-  bttCounterInc = () => {
-    const { counter } = this.state;
-    const counterInc = bttClickIncrement(counter);
-    this.setState({
-      counter: counterInc,
+  bttCounterInc = (ID) => {
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
+    const changedArry = storage.map((item) => {
+      if (item.id === ID) {
+        let xablau = item.quantity;
+        xablau += 1;
+        return { ...item, quantity: xablau };
+      }
+      return item;
     });
-    if (counter === 0) this.setState({ counter: 1 });
+    localStorage.setItem('cartItems', JSON.stringify(changedArry));
+    this.setState({
+      cartItems: changedArry,
+    });
   };
 
-  bttCounterDec = () => {
-    const { counter } = this.state;
-    const isOne = counter === 1;
-    if (!isOne) {
-      const counterDec = bttClickDecremented(counter);
-      this.setState({
-        counter: counterDec,
-      });
-    }
-    // if (counter === 0) this.setState({ counter: 1 });
+  bttCounterDec = (ID) => {
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
+    const changedArry = storage.map((item) => {
+      if (item.id === ID) {
+        let xablau = item.quantity;
+        if (xablau !== 1) xablau -= 1;
+        return { ...item, quantity: xablau };
+      }
+      return item;
+    });
+    localStorage.setItem('cartItems', JSON.stringify(changedArry));
+    this.setState({
+      cartItems: changedArry,
+    });
   };
 
   getItemsFromLocalStorage = () => {
@@ -71,8 +74,6 @@ class ShoppingCart extends Component {
         cartItems: [...prevState.cartItems, ...recoveredCartItems],
       }));
     }
-    // console.log(isEmpty);
-    // console.log('const cartItems =', recoveredCartItems);
   };
 
   render() {
@@ -95,9 +96,10 @@ class ShoppingCart extends Component {
                 title={ item.title }
                 price={ item.price }
                 handleRemoveItemButton={ this.handleRemoveItemButton }
-                counterInc={ this.bttCounterInc }
-                counterDec={ this.bttCounterDec }
+                counterInc={ () => this.bttCounterInc(item.id) }
+                counterDec={ () => this.bttCounterDec(item.id) }
                 counter={ counter }
+                quantity={ item.quantity }
               />
 
             ))

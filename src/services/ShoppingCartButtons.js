@@ -9,6 +9,7 @@ export function handleButtonAddCart(state) {
     id,
     title,
     price,
+    quantity: 1,
   };
   // Verifica se o conteudo dentro de localstorage cartItems é nulo, se sim, isEmpty é true.
   // localStorage.length me causou problemas, se houver qualquer outro valor lá ele acusa como
