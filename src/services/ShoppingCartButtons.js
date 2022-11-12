@@ -25,8 +25,3 @@ export function handleButtonAddCart(state) {
     localStorage.setItem('cartItems', JSON.stringify(arrayOfProductObj));
   }
 }
-
-// export function handleRemoveItemButton(event) {
-//   const storage = JSON.parse(localStorage.getItem('cartItems'));
-//   console.log(event);
-// }

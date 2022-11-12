@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 
 class Product extends Component {
   state = {
@@ -11,6 +12,7 @@ class Product extends Component {
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductById(id);
+    // console.log(product);
 
     this.setState({
       product,
@@ -38,11 +40,21 @@ class Product extends Component {
             alt={ product.title }
           />
         )) } */}
-        <Link to="/shoppingCart" data-testid="shopping-cart-button">
-          <button type="submit">
+        <Link to="/shoppingCart">
+          <button
+            type="submit"
+            data-testid="shopping-cart-button"
+          >
             Meu carrinho
           </button>
         </Link>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ () => handleButtonAddCart(this.state) }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
