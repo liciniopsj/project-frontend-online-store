@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CartItemListCard from '../components/CartItem';
 import { bttClickIncrement, bttClickDecremented } from '../services/CounterBtt';
 
+
 class ShoppingCart extends Component {
   state = {
     emptyCart: true,
@@ -77,6 +78,7 @@ class ShoppingCart extends Component {
 
   render() {
     const { emptyCart, cartItems, counter } = this.state;
+
     return (
       <div>
         {
@@ -98,6 +100,7 @@ class ShoppingCart extends Component {
                 counterDec={ this.bttCounterDec }
                 counter={ counter }
               />
+
             ))
         }
       </div>

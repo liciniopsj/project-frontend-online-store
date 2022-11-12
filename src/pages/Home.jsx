@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Categories from '../components/Categories';
 import { getProductFromQuery, getProductsFromCategory } from '../services/api';
+import ProductCard from '../components/ProductCard';
+import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 
 class Home extends Component {
   state = {
@@ -43,6 +45,13 @@ class Home extends Component {
     this.setState({
       queryResult: results,
     });
+    // console.log(queryResult);
+  };
+
+  getSavedCartItems = (item) => {
+    this.setState({
+      product: item,
+    }, () => handleButtonAddCart(this.state));
   };
 
   render() {
@@ -85,18 +94,22 @@ class Home extends Component {
                   : 'Digite algum termo de pesquisa ou escolha uma categoria.' }
               </span>)
             : queryResult.map((item) => (
-              <Link
-                to={ `/product/${item.id}` }
-                data-testid="product-detail-link"
-                key={ item.id }
-              >
-                <div data-testid="product">
-                  <h3>{item.title}</h3>
-                  <img src={ item.thumbnail } alt={ item.title } />
-                  <h2>{ item.price }</h2>
-                </div>
-              </Link>
-            )) }
+              <div key={ item.id }>
+                <ProductCard
+                  id={ item.id }
+                  title={ item.title }
+                  price={ item.price }
+                  thumbnail={ item.thumbnail }
+                />
+                <button
+                  type="button"
+                  data-testid="product-add-to-cart"
+                  onClick={ () => this.getSavedCartItems(item) }
+                >
+                  Adicionar ao Carrinho
+                </button>
+              </div>
+            ))}
         </section>
         <button
           type="button"
