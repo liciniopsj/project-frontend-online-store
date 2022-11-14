@@ -28,14 +28,13 @@ class Product extends Component {
     const { product, isLoading } = this.state;
     const { pictures, price, attributes } = product;
     const priceBr = String(price).replace('.', ',');
-    console.log(product);
     return (
       <div>
         { isLoading ? <Loading /> : (
           <div>
             <div>
               <h2 data-testid="product-detail-name">{ product.title }</h2>
-              <h2 data-testid="product-detail-price">{ `R$: ${priceBr}` }</h2>
+              <h2 data-testid="product-detail-price">{ `R$: ${priceBr} (${price})` }</h2>
               <div>
                 { pictures.map((pic) => (
                   <img
