@@ -3,58 +3,76 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import { handleButtonAddCart } from '../services/ShoppingCartButtons';
+import Loading from '../components/Loading';
 
 class Product extends Component {
   state = {
     product: {},
+    isLoading: true,
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductById(id);
-    // console.log(product);
 
     this.setState({
       product,
+    }, () => {
+      this.setState({
+        isLoading: false,
+      });
     });
   }
 
   render() {
-    const { product } = this.state;
+    const { product, isLoading } = this.state;
+    const { pictures, price, attributes } = product;
+    const priceBr = String(price).replace('.', ',');
+    console.log(product);
     return (
       <div>
-        <h2 data-testid="product-detail-name">{ product.title }</h2>
-        <h2 data-testid="product-detail-price">{ `R$: ${product.price}` }</h2>
-        <img
-          data-testid="product-detail-image"
-          src={ product.thumbnail }
-          alt={ product.title }
-        />
-
-        {/* Ideia de melhoria, ao invés de renderizar a thumbnail, renderizar as imagens
-        { pictures.map((pic) => (
-          <img
-            key={ pic.id }
-            data-testid="product-detail-image"
-            src={ pic.url }
-            alt={ product.title }
-          />
-        )) } */}
-        <Link to="/shoppingCart">
-          <button
-            type="submit"
-            data-testid="shopping-cart-button"
-          >
-            Meu carrinho
-          </button>
-        </Link>
-        <button
-          data-testid="product-detail-add-to-cart"
-          type="button"
-          onClick={ () => handleButtonAddCart(this.state) }
-        >
-          Adicionar ao carrinho
-        </button>
+        { isLoading ? <Loading /> : (
+          <div>
+            <div>
+              <h2 data-testid="product-detail-name">{ product.title }</h2>
+              <h2 data-testid="product-detail-price">{ `R$: ${priceBr}` }</h2>
+              <div>
+                { pictures.map((pic) => (
+                  <img
+                    key={ pic.id }
+                    data-testid="product-detail-image"
+                    src={ pic.url }
+                    alt={ product.title }
+                  />
+                )) }
+              </div>
+              <div>
+                <ul>
+                  { attributes.map((atributte) => (
+                    <li key={ atributte.id }>
+                      { `${atributte.name}: ${atributte.value_name}` }
+                    </li>
+                  )) }
+                </ul>
+              </div>
+            </div>
+            <Link to="/shoppingCart">
+              <button
+                type="submit"
+                data-testid="shopping-cart-button"
+              >
+                Meu carrinho
+              </button>
+            </Link>
+            <button
+              data-testid="product-detail-add-to-cart"
+              type="button"
+              onClick={ () => handleButtonAddCart(this.state) }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>
+        ) }
       </div>
     );
   }
