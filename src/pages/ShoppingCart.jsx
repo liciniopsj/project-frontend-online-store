@@ -116,7 +116,7 @@ class ShoppingCart extends Component {
           data-testid="checkout-products"
           onClick={ this.redirectCheckoutButton }
         >
-          Adicionar ao Carrinho
+          Finalizar Compra
         </button>
         {
           isButtonClicked ? <Redirect to="/checkout" /> : null
