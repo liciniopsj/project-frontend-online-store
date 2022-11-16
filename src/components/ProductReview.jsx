@@ -35,7 +35,11 @@ class ProductReview extends Component {
       <div>
         <h4>Revise seus produtos</h4>
         {cartItems.map((item) => (
-          <p key={ item.id }>{`${item.title} R$ ${item.price}`}</p>
+          <p key={ item.id }>
+            <span>{item.title}</span>
+            {' '}
+            <span>{`R$ ${item.price}`}</span>
+          </p>
         ))}
         <span>{`Total à Pagar: R$ ${totalPrice}`}</span>
       </div>
