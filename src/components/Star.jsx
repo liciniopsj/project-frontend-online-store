@@ -10,7 +10,7 @@ class Star extends Component {
           type="button"
           id={ id }
           className="star star-1"
-          data-testid="1-rating"
+          data-testid={ `${id}-rating` }
           onMouseOver={ onMouseOver }
           onMouseOut={ onMouseOut }
           onClick={ onClick }

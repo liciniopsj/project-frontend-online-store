@@ -5,71 +5,120 @@ import { getProductById } from '../services/api';
 import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 import './Product.css';
 import Star from '../components/Star';
+import Error from '../components/Error';
 
 const starGrey = { color: 'lightgrey' };
 const starYellow = { color: 'yellow' };
+const starMax = ['1', '2', '3', '4', '5'];
 
 class Product extends Component {
   state = {
     product: {},
     email: '',
-    hating: 0,
+    rating: 0,
     text: '',
-    star1: starGrey,
-    star2: starGrey,
-    star3: starGrey,
-    star4: starGrey,
-    star5: starGrey,
+    starColored: [
+      starGrey,
+      starGrey,
+      starGrey,
+      starGrey,
+      starGrey,
+    ],
+    starClick: false,
+    markedStars: false,
+    assessments: [],
+    validadeForm: true,
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductById(id);
-    // console.log(product);
-
+    const assessments = JSON.parse(localStorage.getItem(id)) || [];
     this.setState({
       product,
+      assessments,
     });
   }
+
+  verifyForm = () => {
+    const { email, rating, text } = this.state;
+    const validadeForm = email.length > 0
+      && rating > 0
+      && text.length > 0;
+
+    this.setState({
+      validadeForm: !validadeForm,
+    });
+  };
 
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [name]: value,
+    }, this.verifyForm);
+  };
+
+  setLocalStorage = () => {
+    const { match: { params: { id } } } = this.props;
+    const { email, rating, text, assessments } = this.state;
+    const avaliate = {
+      email,
+      rating,
+      text,
+    };
+
+    localStorage.setItem(id, JSON.stringify([...assessments, avaliate]));
+    this.setState((prevState) => ({
+      assessments: [...prevState.assessments, avaliate],
+      email: '',
+      rating: 0,
+      text: '',
+    }));
+  };
+
+  colorStar = (index) => {
+    this.setState((prevState) => ({
+      starColored: prevState.starColored.map((_, indexStars) => (indexStars <= index
+        ? starYellow
+        : starGrey)),
+    }));
+  };
+
+  uncolorStar = () => {
+    const { rating } = this.state;
+    this.setState((prevState) => ({
+      starColored: prevState.starColored.map((_, indexStars) => (
+        (indexStars + 1) <= rating ? starYellow : starGrey
+      )),
+    }));
+  };
+
+  setHatingStars = (index) => {
+    this.setState({
+      rating: index + 1,
+    }, () => {
+      this.setState(
+        (prevState) => ({
+          starColored: prevState.starColored.map((_, indexStars) => (
+            (indexStars + 1) <= prevState.rating ? starYellow : starGrey
+          )),
+        }),
+      );
     });
   };
 
-  colorStar = ({ target }) => {
-    const { id } = target;
-    for (let i = 1; i <= id; i += 1) {
-      this.setState({
-        [`star${i}`]: starYellow,
-      });
-    }
-  };
-
-  uncolorStar = ({ target }) => {
-    const { id } = target;
-    for (let i = 1; i <= id; i += 1) {
-      this.setState({
-        [`star${i}`]: starGrey,
-      });
-    }
-  };
-
-  setHatingStars = ({ target }) => {
-    const { id } = target;
-    for (let i = 1; i <= id; i += 1) {
-      this.setState({
-        [`star${i}`]: starYellow,
-        hating: i,
-      });
-    }
-  };
-
   render() {
-    const { product, email, text, star1, star2, star3, star4, star5 } = this.state;
+    const {
+      product,
+      email,
+      text,
+      starColored,
+      rating,
+      assessments,
+      validadeForm,
+    } = this.state;
+
     return (
       <div>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
@@ -108,7 +157,7 @@ class Product extends Component {
           <h3>Avaliações:</h3>
           <form>
             <input
-              type="text"
+              type="email"
               name="email"
               placeholder="email"
               data-testid="product-detail-email"
@@ -117,41 +166,19 @@ class Product extends Component {
             />
 
             <div>
-              <Star
-                id="1"
-                style={ star1 }
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onClick={ this.setHatingStars }
-              />
-              <Star
-                id="2"
-                style={ star2 }
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onClick={ this.setHatingStars }
-              />
-              <Star
-                id="3"
-                style={ star3 }
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onClick={ this.setHatingStars }
-              />
-              <Star
-                id="4"
-                style={ star4 }
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onClick={ this.setHatingStars }
-              />
-              <Star
-                id="5"
-                style={ star5 }
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onClick={ this.setHatingStars }
-              />
+              { starMax.map((star, index) => (
+                <Star
+                  key={ star }
+                  id={ star }
+                  style={ starColored[index] }
+                  onMouseOver={ () => this.colorStar(index) }
+                  onMouseOut={ this.uncolorStar }
+                  onClick={ () => this.setHatingStars(index) }
+                />
+              )) }
+              <p>
+                { rating }
+              </p>
             </div>
 
             <input
@@ -164,14 +191,27 @@ class Product extends Component {
             />
 
             <button
-              type="submit"
+              type="button"
               data-testid="submit-review-btn"
+              onClick={ this.setLocalStorage }
+              disabled={ validadeForm }
             >
               Avaliar produto!
             </button>
 
           </form>
 
+        </section>
+        <section>
+          { assessments.map((avaliate) => (
+            <div key={ avaliate.email }>
+              <ul>
+                <li data-testid="review-card-email">{ avaliate.email }</li>
+                <li data-testid="review-card-rating">{ avaliate.rating }</li>
+                <li data-testid="review-card-evaluation">{ avaliate.text }</li>
+              </ul>
+            </div>
+          )) }
         </section>
       </div>
     );
