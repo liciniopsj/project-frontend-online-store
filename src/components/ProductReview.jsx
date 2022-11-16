@@ -34,7 +34,6 @@ class ProductReview extends Component {
     return (
       <div>
         <h4>Revise seus produtos</h4>
-        <br />
         {cartItems.map((item) => (
           <p key={ item.id }>{`${item.title} R$ ${item.price}`}</p>
         ))}

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import ProductReview from '../components/ProductReview';
 
 class Checkout extends Component {
   render() {
     return (
-      <div>Checkout</div>
+      <div>
+        <ProductReview />
+      </div>
     );
   }
 }
