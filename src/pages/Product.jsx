@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import { handleButtonAddCart } from '../services/ShoppingCartButtons';
 import './Product.css';
+import Star from '../components/Star';
 
 const starGrey = { color: 'lightgrey' };
 const starYellow = { color: 'yellow' };
@@ -13,7 +14,7 @@ class Product extends Component {
     product: {},
     email: '',
     hating: 0,
-    message: '',
+    text: '',
     star1: starGrey,
     star2: starGrey,
     star3: starGrey,
@@ -57,9 +58,8 @@ class Product extends Component {
     }
   };
 
-  setHatingStars = (event) => {
-    event.preventDefault();
-    const { id } = event.target;
+  setHatingStars = ({ target }) => {
+    const { id } = target;
     for (let i = 1; i <= id; i += 1) {
       this.setState({
         [`star${i}`]: starYellow,
@@ -69,7 +69,7 @@ class Product extends Component {
   };
 
   render() {
-    const { product, email, message, star1, star2, star3, star4, star5 } = this.state;
+    const { product, email, text, star1, star2, star3, star4, star5 } = this.state;
     return (
       <div>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
@@ -117,81 +117,50 @@ class Product extends Component {
             />
 
             <div>
-              <button
-                type="submit"
+              <Star
                 id="1"
-                className="star star-1"
-                data-testid="1-rating"
+                style={ star1 }
                 onMouseOver={ this.colorStar }
                 onMouseOut={ this.uncolorStar }
                 onClick={ this.setHatingStars }
-                onBlur={ () => {} }
-                onFocus={ () => {} }
-                style={ star1 }
-              >
-                ★
-              </button>
-              <button
-                type="submit"
+              />
+              <Star
                 id="2"
-                className="star star-2"
-                data-testid="2-rating"
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onBlur={ () => {} }
-                onFocus={ () => {} }
                 style={ star2 }
-              >
-                ★
-              </button>
-              <button
-                type="submit"
+                onMouseOver={ this.colorStar }
+                onMouseOut={ this.uncolorStar }
+                onClick={ this.setHatingStars }
+              />
+              <Star
                 id="3"
-                className="star star-3"
-                data-testid="3-rating"
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onBlur={ () => {} }
-                onFocus={ () => {} }
                 style={ star3 }
-              >
-                ★
-              </button>
-              <button
-                type="submit"
+                onMouseOver={ this.colorStar }
+                onMouseOut={ this.uncolorStar }
+                onClick={ this.setHatingStars }
+              />
+              <Star
                 id="4"
-                className="star star-4"
-                data-testid="4-rating"
-                onMouseOver={ this.colorStar }
-                onMouseOut={ this.uncolorStar }
-                onBlur={ () => {} }
-                onFocus={ () => {} }
                 style={ star4 }
-              >
-                ★
-              </button>
-              <button
-                type="submit"
-                id="5"
-                className="star star-5"
-                data-testid="5-rating"
                 onMouseOver={ this.colorStar }
                 onMouseOut={ this.uncolorStar }
-                onBlur={ () => {} }
-                onFocus={ () => {} }
+                onClick={ this.setHatingStars }
+              />
+              <Star
+                id="5"
                 style={ star5 }
-              >
-                ★
-              </button>
+                onMouseOver={ this.colorStar }
+                onMouseOut={ this.uncolorStar }
+                onClick={ this.setHatingStars }
+              />
             </div>
 
             <input
               type="textarea"
-              name="message"
+              name="text"
               placeholder="Mensagem (opcional)"
               data-testid="product-detail-evaluation"
               onChange={ this.onInputChange }
-              value={ message }
+              value={ text }
             />
 
             <button
