@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Clientform from '../components/Clientform';
 import ProductReview from '../components/ProductReview';
 
 class Checkout extends Component {
@@ -13,8 +14,10 @@ class Checkout extends Component {
   render() {
     return (
       <div>
+        <Clientform />
         <ProductReview />
       </div>
+
     );
   }
 }
