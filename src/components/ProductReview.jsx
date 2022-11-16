@@ -17,7 +17,6 @@ class ProductReview extends Component {
       acum += item.price;
       return acum;
     }, 0);
-    console.log(total);
     this.setState({
       totalPrice: total,
     });
