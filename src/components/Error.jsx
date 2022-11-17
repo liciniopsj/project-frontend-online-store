@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Error extends Component {
   render() {
     return (
-      <div>Error</div>
+      <div>Campos inválidos</div>
     );
   }
 }

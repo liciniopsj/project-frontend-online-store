@@ -27,7 +27,8 @@ class Product extends Component {
     starClick: false,
     markedStars: false,
     assessments: [],
-    validadeForm: true,
+    validadeForm: false,
+    isError: false,
   };
 
   async componentDidMount() {
@@ -41,14 +42,18 @@ class Product extends Component {
   }
 
   verifyForm = () => {
+    this.setState({
+    });
     const { email, rating, text } = this.state;
     const validadeForm = email.length > 0
       && rating > 0
       && text.length > 0;
 
-    this.setState({
-      validadeForm: !validadeForm,
-    });
+    if (validadeForm) {
+      this.setState({ validadeForm: true });
+    } else {
+      this.setState({ validadeForm: false });
+    }
   };
 
   onInputChange = ({ target }) => {
@@ -61,20 +66,30 @@ class Product extends Component {
 
   setLocalStorage = () => {
     const { match: { params: { id } } } = this.props;
-    const { email, rating, text, assessments } = this.state;
+    const { email, rating, text, assessments, validadeForm } = this.state;
     const avaliate = {
       email,
       rating,
       text,
     };
-
-    localStorage.setItem(id, JSON.stringify([...assessments, avaliate]));
-    this.setState((prevState) => ({
-      assessments: [...prevState.assessments, avaliate],
-      email: '',
-      rating: 0,
-      text: '',
-    }));
+    if (validadeForm) {
+      localStorage.setItem(id, JSON.stringify([...assessments, avaliate]));
+      this.setState((prevState) => ({
+        assessments: [...prevState.assessments, avaliate],
+        email: '',
+        rating: 0,
+        text: '',
+        isError: false,
+        validadeForm: false,
+      }));
+    } else {
+      this.setState({
+        isError: true,
+        email: '',
+        rating: 0,
+        text: '',
+      });
+    }
   };
 
   colorStar = (index) => {
@@ -116,7 +131,7 @@ class Product extends Component {
       starColored,
       rating,
       assessments,
-      validadeForm,
+      isError,
     } = this.state;
 
     return (
@@ -157,7 +172,7 @@ class Product extends Component {
           <h3>Avaliações:</h3>
           <form>
             <input
-              type="email"
+              type="text"
               name="email"
               placeholder="email"
               data-testid="product-detail-email"
@@ -190,15 +205,17 @@ class Product extends Component {
               value={ text }
             />
 
-            <button
-              type="button"
-              data-testid="submit-review-btn"
-              onClick={ this.setLocalStorage }
-              disabled={ validadeForm }
-            >
-              Avaliar produto!
-            </button>
+            { isError ? <Error data-testid="error-msg" /> : null }
 
+            <div>
+              <button
+                type="button"
+                data-testid="submit-review-btn"
+                onClick={ this.setLocalStorage }
+              >
+                Avaliar produto!
+              </button>
+            </div>
           </form>
 
         </section>
