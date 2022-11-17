@@ -100,6 +100,7 @@ class Home extends Component {
                   title={ item.title }
                   price={ item.price }
                   thumbnail={ item.thumbnail }
+                  shipping={ item.shipping.free_shipping }
                 />
                 <button
                   type="button"

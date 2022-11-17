@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import './Product.css';
 import Star from '../components/Star';
 import Error from '../components/Error';
+import Shipping from '../components/Shipping';
 
 const starGrey = { color: 'lightgrey' };
 const starYellow = { color: 'yellow' };
@@ -44,8 +45,8 @@ class Product extends Component {
   verifyForm = () => {
     this.setState({
     });
-    const { email, rating, text } = this.state;
-    const validadeForm = email.length > 0 && rating > 0 && text.length > 0;
+    const { email, rating } = this.state;
+    const validadeForm = email.length > 0 && rating > 0 && email.includes('@');
     if (validadeForm) { this.setState({ validadeForm: true }); }
     if (!validadeForm) { this.setState({ validadeForm: false }); }
   };
@@ -116,9 +117,9 @@ class Product extends Component {
   render() {
     const { product, isLoading, email, text, starColored, rating,
       assessments, isError } = this.state;
-
-    const { pictures, price, attributes } = product;
+    const { pictures, price, attributes, shipping } = product;
     const priceBr = String(price).replace('.', ',');
+    document.title = `G23_OnlineStore | ${product.title}`;
 
     return (
       <div>
@@ -137,6 +138,7 @@ class Product extends Component {
                   />
                 )) }
               </div>
+              { shipping.free_shipping ? <Shipping /> : null }
               <div>
                 <ul>
                   { attributes.map((atributte) => (
