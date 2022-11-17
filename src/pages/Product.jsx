@@ -19,13 +19,7 @@ class Product extends Component {
     email: '',
     rating: 0,
     text: '',
-    starColored: [
-      starGrey,
-      starGrey,
-      starGrey,
-      starGrey,
-      starGrey,
-    ],
+    starColored: [starGrey, starGrey, starGrey, starGrey, starGrey],
     starClick: false,
     markedStars: false,
     assessments: [],
@@ -51,15 +45,9 @@ class Product extends Component {
     this.setState({
     });
     const { email, rating, text } = this.state;
-    const validadeForm = email.length > 0
-      && rating > 0
-      && text.length > 0;
-
-    if (validadeForm) {
-      this.setState({ validadeForm: true });
-    } else {
-      this.setState({ validadeForm: false });
-    }
+    const validadeForm = email.length > 0 && rating > 0 && text.length > 0;
+    if (validadeForm) { this.setState({ validadeForm: true }); }
+    if (!validadeForm) { this.setState({ validadeForm: false }); }
   };
 
   onInputChange = ({ target }) => {
@@ -73,11 +61,7 @@ class Product extends Component {
   setLocalStorage = () => {
     const { match: { params: { id } } } = this.props;
     const { email, rating, text, assessments, validadeForm } = this.state;
-    const avaliate = {
-      email,
-      rating,
-      text,
-    };
+    const avaliate = { email, rating, text };
     if (validadeForm) {
       localStorage.setItem(id, JSON.stringify([...assessments, avaliate]));
       this.setState((prevState) => ({
@@ -130,16 +114,8 @@ class Product extends Component {
   };
 
   render() {
-    const {
-      product,
-      isLoading,
-      email,
-      text,
-      starColored,
-      rating,
-      assessments,
-      isError,
-    } = this.state;
+    const { product, isLoading, email, text, starColored, rating,
+      assessments, isError } = this.state;
 
     const { pictures, price, attributes } = product;
     const priceBr = String(price).replace('.', ',');
