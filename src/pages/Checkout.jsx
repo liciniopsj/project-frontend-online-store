@@ -56,9 +56,9 @@ class Checkout extends Component {
     && checkoutCepCheck
     && checkoutAddressCheck;
 
-    console.log('inputsflag', inputsFlag);
-    console.log('paymentMethodCheck', paymentMethodCheck);
-    console.log('paymentMethod', paymentMethod);
+    // console.log('inputsflag', inputsFlag);
+    // console.log('paymentMethodCheck', paymentMethodCheck);
+    // console.log('paymentMethod', paymentMethod);
 
     if (inputsFlag) {
       this.setState({
