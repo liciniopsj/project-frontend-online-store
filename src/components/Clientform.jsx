@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
 
 class Clientform extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: 'React',
-    };
-    this.onValueChange = this.onValueChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
-  }
+  state = {
+    paymentMethod: '',
+  };
 
-  onValueChange(event) {
-    const { name } = this.state;
-    console.log(name);
+  onValueChange = (event) => {
     this.setState({
       paymentMethod: event.target.value,
     });
-  }
-
-  handleInputsValue = (event) => {
-    const { name } = event.target;
-    console.log(name);
   };
 
-  formSubmit(event) {
+  formSubmit = (event) => {
     event.preventDefault();
-  }
+  };
 
   render() {
+    const {
+      handleChange,
+      checkoutFullName,
+      checkoutEmail,
+      checkoutCpf,
+      checkoutTelephone,
+      checkoutCep,
+      checkoutAddress } = this.props;
     const { paymentMethod } = this.state;
+
     return (
       <form onSubmit={ this.formSubmit }>
         <h4> Informações do Comprador </h4>
@@ -36,46 +33,46 @@ class Clientform extends Component {
           type="text"
           value={ checkoutFullName }
           onChange={ handleChange }
-          name="name"
+          name="checkoutFullName"
           data-testid="checkout-fullname"
           placeholder="Nome completo"
         />
         <input
           type="text"
-          name="email"
           value={ checkoutEmail }
+          name="checkoutEmail"
           onChange={ handleChange }
           data-testid="checkout-email"
           placeholder="Email"
         />
         <input
           type="number"
-          name="cpf"
           value={ checkoutCpf }
+          name="checkoutCpf"
           onChange={ handleChange }
           data-testid="checkout-cpf"
           placeholder="CPF"
         />
         <input
           type="number"
-          name="telephone"
           value={ checkoutTelephone }
+          name="checkoutTelephone"
           onChange={ handleChange }
           data-testid="checkout-phone"
           placeholder="Telefone"
         />
         <input
           type="number"
-          name="cep"
           value={ checkoutCep }
+          name="checkoutCep"
           onChange={ handleChange }
           data-testid="checkout-cep"
           placeholder="CEP"
         />
         <input
           type="text"
-          name="address"
           value={ checkoutAddress }
+          name="checkoutAddress"
           onChange={ handleChange }
           data-testid="checkout-address"
           placeholder="Endereço"
@@ -133,7 +130,6 @@ class Clientform extends Component {
           type="button"
           name="checkout-button"
           data-testid="checkout-btn"
-          disabled={ !validateForm }
           onClick={ this.handleInputsValue }
         >
           Comprar
