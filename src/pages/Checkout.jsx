@@ -12,13 +12,13 @@ class Checkout extends Component {
     checkoutAddress: '',
   };
 
-  handleChange({ target }) {
+  handleChange = ({ target }) => {
     const { name, value } = target;
     const targetValue = value;
     this.setState({
       [name]: targetValue,
     });
-  }
+  };
 
   render() {
     const { checkoutFullName,
