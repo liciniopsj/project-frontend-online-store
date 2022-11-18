@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Shipping from './Shipping';
 
 class ProductCard extends Component {
   render() {
-    const { id, title, price, thumbnail } = this.props;
+    const { id, title, price, thumbnail, shipping } = this.props;
     return (
       <Link
         to={ `/product/${id}` }
@@ -15,6 +16,7 @@ class ProductCard extends Component {
           <h3>{title}</h3>
           <img src={ thumbnail } alt={ title } />
           <h2>{ `R$${+price}` }</h2>
+          { shipping ? <Shipping /> : null }
         </div>
       </Link>
     );
