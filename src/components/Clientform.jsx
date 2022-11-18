@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Clientform extends Component {
-  state = {
-    paymentMethod: '',
-  };
+  // state = {
+  //   paymentMethod: '',
+  // };
 
-  onValueChange = (event) => {
-    this.setState({
-      paymentMethod: event.target.value,
-    });
-  };
+  // onValueChange = (event) => {
+  //   this.setState({
+  //     paymentMethod: event.target.value,
+  //   });
+  // };
 
   formSubmit = (event) => {
     event.preventDefault();
@@ -18,13 +19,17 @@ class Clientform extends Component {
   render() {
     const {
       handleChange,
+      handleCheckoutFormButton,
       checkoutFullName,
       checkoutEmail,
       checkoutCpf,
       checkoutTelephone,
       checkoutCep,
+      // enableButton,
+      checkoutErrorMsg,
+      onValueChange,
+      paymentMethod,
       checkoutAddress } = this.props;
-    const { paymentMethod } = this.state;
 
     return (
       <form onSubmit={ this.formSubmit }>
@@ -46,7 +51,7 @@ class Clientform extends Component {
           placeholder="Email"
         />
         <input
-          type="number"
+          type="text"
           value={ checkoutCpf }
           name="checkoutCpf"
           onChange={ handleChange }
@@ -54,7 +59,7 @@ class Clientform extends Component {
           placeholder="CPF"
         />
         <input
-          type="number"
+          type="test"
           value={ checkoutTelephone }
           name="checkoutTelephone"
           onChange={ handleChange }
@@ -62,7 +67,7 @@ class Clientform extends Component {
           placeholder="Telefone"
         />
         <input
-          type="number"
+          type="test"
           value={ checkoutCep }
           name="checkoutCep"
           onChange={ handleChange }
@@ -84,7 +89,7 @@ class Clientform extends Component {
               type="radio"
               value="ticket"
               checked={ paymentMethod === 'ticket' }
-              onChange={ this.onValueChange }
+              onChange={ onValueChange }
               data-testid="ticket-payment"
             />
             Boleto
@@ -96,7 +101,7 @@ class Clientform extends Component {
               type="radio"
               value="visa"
               checked={ paymentMethod === 'visa' }
-              onChange={ this.onValueChange }
+              onChange={ onValueChange }
               data-testid="visa-payment"
             />
             Visa
@@ -108,7 +113,7 @@ class Clientform extends Component {
               type="radio"
               value="mastercard"
               checked={ paymentMethod === 'mastercard' }
-              onChange={ this.onValueChange }
+              onChange={ onValueChange }
               data-testid="master-payment"
             />
             MasterCard
@@ -120,17 +125,23 @@ class Clientform extends Component {
               type="radio"
               value="elo"
               checked={ paymentMethod === 'elo' }
-              onChange={ this.onValueChange }
+              onChange={ onValueChange }
               data-testid="elo-payment"
             />
           </label>
           Elo
         </div>
+        <br />
+        <br />
+        {checkoutErrorMsg ? <span data-testid="error-msg">Campos inválidos</span> : null}
+        <br />
+        <br />
         <button
           type="button"
           name="checkout-button"
           data-testid="checkout-btn"
-          onClick={ this.handleInputsValue }
+          onClick={ handleCheckoutFormButton }
+          // disabled={ !enableButton }
         >
           Comprar
         </button>
@@ -141,3 +152,14 @@ class Clientform extends Component {
 }
 
 export default Clientform;
+
+Clientform.propTypes = {
+  handleChange: PropTypes.func,
+  handleCheckoutFormButton: PropTypes.func,
+  checkoutFullName: PropTypes.string,
+  checkoutEmail: PropTypes.string,
+  checkoutCpf: PropTypes.string,
+  checkoutTelephone: PropTypes.string,
+  checkoutCep: PropTypes.string,
+  checkoutAddress: PropTypes.string,
+}.isRequired;
