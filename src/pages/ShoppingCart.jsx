@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import CartItemListCard from '../components/CartItem';
 
 class ShoppingCart extends Component {
   state = {
+    isButtonClicked: false,
     emptyCart: true,
     cartItems: [],
     counter: 1,
@@ -76,8 +78,14 @@ class ShoppingCart extends Component {
     }
   };
 
+  redirectCheckoutButton = () => {
+    this.setState({
+      isButtonClicked: true,
+    });
+  };
+
   render() {
-    const { emptyCart, cartItems, counter } = this.state;
+    const { emptyCart, cartItems, counter, isButtonClicked } = this.state;
 
     return (
       <div>
@@ -101,8 +109,17 @@ class ShoppingCart extends Component {
                 counter={ counter }
                 quantity={ item.quantity }
               />
-
             ))
+        }
+        <button
+          type="button"
+          data-testid="checkout-products"
+          onClick={ this.redirectCheckoutButton }
+        >
+          Finalizar Compra
+        </button>
+        {
+          isButtonClicked ? <Redirect to="/checkout" /> : null
         }
       </div>
     );
