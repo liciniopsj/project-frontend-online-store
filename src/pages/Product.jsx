@@ -47,6 +47,7 @@ class Product extends Component {
     });
     const { email, rating } = this.state;
     const validadeForm = email.length > 0 && rating > 0 && email.includes('@');
+    console.log(validadeForm, email, rating);
     if (validadeForm) { this.setState({ validadeForm: true }); }
     if (!validadeForm) { this.setState({ validadeForm: false }); }
   };
@@ -76,9 +77,6 @@ class Product extends Component {
     } else {
       this.setState({
         isError: true,
-        email: '',
-        rating: 0,
-        text: '',
       });
     }
   };
@@ -104,6 +102,7 @@ class Product extends Component {
     this.setState({
       rating: index + 1,
     }, () => {
+      this.verifyForm();
       this.setState(
         (prevState) => ({
           starColored: prevState.starColored.map((_, indexStars) => (
@@ -203,7 +202,7 @@ class Product extends Component {
               value={ text }
             />
 
-            { isError ? <Error data-testid="error-msg" /> : null }
+            { isError ? <Error /> : null }
 
             <div>
               <button

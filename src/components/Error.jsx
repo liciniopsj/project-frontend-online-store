@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Error extends Component {
   render() {
     return (
-      <div>Campos inválidos</div>
+      <div data-testid="error-msg">Campos inválidos</div>
     );
   }
 }
